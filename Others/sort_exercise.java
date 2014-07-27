@@ -41,12 +41,13 @@ public class sort_exercise {
 		}
 	}
 
-	//Thrid Method
+	//Thrid Method: Sort an Object with Comparable
+
 	public static void Comparable_sort(){
 		Fruit[] fruits = new Fruit[4];
  
 		Fruit pineappale = new Fruit("Pineapple", "Pineapple description",70); 
-		Fruit apple = new Fruit("Apple", "Apple description",100); 
+		Fruit apple = new Fruit("Apple", "Apple description",20); 
 		Fruit orange = new Fruit("Orange", "Orange description",80); 
 		Fruit banana = new Fruit("Banana", "Banana description",90); 
  
@@ -56,8 +57,17 @@ public class sort_exercise {
 		fruits[3]=banana;
  
 		Arrays.sort(fruits);
+		
  
 		int i=0;
+		for(Fruit temp: fruits){
+		   System.out.println("fruits " + ++i + " : " + temp.getFruitName() + 
+			", Quantity : " + temp.getQuantity());
+		}
+
+		Arrays.sort(fruits,Fruit.FruitNameComparator);
+
+		i=0;
 		for(Fruit temp: fruits){
 		   System.out.println("fruits " + ++i + " : " + temp.getFruitName() + 
 			", Quantity : " + temp.getQuantity());
@@ -65,7 +75,7 @@ public class sort_exercise {
 	}
 }
 
-
+//Sort an Object with Comparable. Implement Comparable and override compareTo
 class Fruit implements Comparable<Fruit>{
 	private String fruitName;
 	private String fruitDesc;
@@ -102,9 +112,19 @@ class Fruit implements Comparable<Fruit>{
 		int compareQuantity = compareFruit.getQuantity();
 
 		//ascending order
-		return this.quantity - compareQuantity;
+		return this.getQuantity() - compareQuantity;
 
 		//descending order
 		//return compareQuantity - this.quantity;
 	}
+
+	public static Comparator<Fruit> FruitNameComparator = new Comparator<Fruit>() {
+		public int compare(Fruit fruit1, Fruit fruit2){
+			String fruitName1 = fruit1.getFruitName().toUpperCase();
+			String fruitName2 = fruit2.getFruitName().toUpperCase();
+
+			//ascending order
+			return fruitName1.compareTo(fruitName2);
+		}
+	};
 }
